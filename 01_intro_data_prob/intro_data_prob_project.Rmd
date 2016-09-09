@@ -1,5 +1,6 @@
 ---
 title: "Exploring the BRFSS data"
+author: "Raymond Ngiam"
 output: 
   html_document: 
     fig_height: 4
