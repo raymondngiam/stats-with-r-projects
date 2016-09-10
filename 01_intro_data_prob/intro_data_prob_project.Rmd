@@ -45,12 +45,18 @@ Since this is an observational study, not an experiment where subjects are rando
 
 ## Part 2: Research questions
 
-**Research quesion 1:**
+**Research quesion 1: What are the health care coverage ratio across different income levels for men and women?**
 
-**Research quesion 2:**
+This research question is of interest because we can observe whether are there differences in proportion of people with health care coverage for different income levels. 
 
-**Research quesion 3:**
+**Research quesion 2: What are the flu shot in the past 12 months ratio across different income levels for men and women?**
 
+This research question is of interest because we can observe whether are there differences in proportion of people with flu shot in the past 12 months for different income levels.
+
+
+**Research quesion 3: What is the percentage distribution of Body Mass Index (BMI) classes, i.e. "Underweight","Normal", "Overweight", and "Obesity", for men and women.**
+
+This research question is of interest because we can know the proportion of men and women which are in different BMI classes.
 
 * * *
 
