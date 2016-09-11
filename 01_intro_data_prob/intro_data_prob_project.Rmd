@@ -1,6 +1,7 @@
 ---
 title: "Exploring the BRFSS data"
 author: "Raymond Ngiam"
+date: "28 May 2016"
 output: 
   html_document: 
     fig_height: 4
