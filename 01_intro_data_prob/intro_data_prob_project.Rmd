@@ -31,7 +31,7 @@ load("brfss2013.RData")
 
 **How the observations in the sample are collected:**
 
-BRFSS conducts both landline telephone- and cellular telephone-based surveys.  Stratified sampling is used in landline telephone-based surveys, while simple random sampling is used in cellular telephone-based surveys.
+BRFSS conducts both landline telephone- and cellular telephone-based surveys.  Stratified sampling is used in landline telephone-based surveys, while simple random sampling is used in cellular telephone-based surveys [1].
 
 **Implications of this data collection method on the scope of inference (generalizability):**
 
@@ -175,11 +175,11 @@ q2_female_result
 
 **Research quesion 3: What is the percentage distribution of Body Mass Index (BMI) classes, i.e. "Underweight","Normal", "Overweight", and "Obesity", for men and women.**
 
-BMI quantifies the amount of tissue mass (muscle, fat, and bone) in an individual, and then categorize that person as underweight, normal weight, overweight, or obese based on that value. BMI is given by the following equation for weight in pounds and height in inches:
+BMI quantifies the amount of tissue mass (muscle, fat, and bone) in an individual, and then categorize that person as underweight, normal weight, overweight, or obese based on that value [2]. BMI is given by the following equation for weight in pounds and height in inches:
 
 $$BMI = 703\times\frac{weight}{height^{2}}$$
 
-The original dataset is filtered for weights reported in pounds (i.e. 50 $\leq$ weight2 $\leq$ 999) and heights reported in ft/in (i.e. 200 $\leq$ height3 $\leq$ 711). The height column is further converted into values purely in inches. Then BMI values according to the above formula are computed.
+The original dataset is filtered for weights reported in pounds (i.e. 50 $\leq$ weight2 $\leq$ 999) and heights reported in ft/in (i.e. 200 $\leq$ height3 $\leq$ 711) [3]. The height column is further converted into values purely in inches. Then BMI values according to the above formula are computed.
 
 ```{r}
 q3_brfss2013 <- brfss2013 %>%
@@ -235,7 +235,7 @@ q3_result
 
 <span style="color:blue">Interpretation: Since the distribution of BMI for both male and female are not symmetric, a good measure of center is the median. The median for male BMI is 13.81041 and the median for female BMI is 13.37889.</span>    
 
-Classification based on BMI values into BMI classes (i.e. Underweight, Normal, Overweight and Obesity).
+Classification based on BMI values into BMI classes (i.e. Underweight, Normal, Overweight and Obesity) [2].
 
 ```{r}
 q3_class_brfss2013 <- q3_brfss2013 %>%
@@ -260,3 +260,12 @@ q3_result2
 ```
 <span style="color:blue">Interpretation: Majority of the sample population, 80.3% and 78.7% for men and women respectively, are underweight according to BMI standard. </span> 
 
+* * *
+
+## References
+
+[1] The BRFSS Data User Guide 2013. Retrieved May 28, 2016. [link](http://www.cdc.gov/brfss/data_documentation/pdf/userguidejune2013.pdf)
+
+[2] Wikipedia - Body mass index. Retrieved May 28, 2016. [link](https://en.wikipedia.org/wiki/Body_mass_index)
+
+[3] BRFSS Cookbook 2013. Retrieved May 28, 2016. [link](https://d3c33hcgiwev3.cloudfront.net/_e34476fda339107329fc316d1f98e042_brfss_codebook.html?Expires=1464566400&Signature=YGA1liDKz1Ezue6MnRYblyxWRn5bU9Gg-vVGiaqwEghDK~GsEy06za6HmeLe7RGT3YKLJ3f7jTYywKUXfGFepfdTvPAfP9im-5mmwMcDaIs9wZsyI3HpLkymdLEZ3YduG4nxrxlvabYMXpEUUagAHCNs1fTWMfbyCOBWansWrfg_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)

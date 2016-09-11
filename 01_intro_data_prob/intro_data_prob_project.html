@@ -165,7 +165,7 @@ $(document).ready(function () {
 <div id="part-1-data" class="section level2">
 <h2>Part 1: Data</h2>
 <p><strong>How the observations in the sample are collected:</strong></p>
-<p>BRFSS conducts both landline telephone- and cellular telephone-based surveys. Stratified sampling is used in landline telephone-based surveys, while simple random sampling is used in cellular telephone-based surveys.</p>
+<p>BRFSS conducts both landline telephone- and cellular telephone-based surveys. Stratified sampling is used in landline telephone-based surveys, while simple random sampling is used in cellular telephone-based surveys [1].</p>
 <p><strong>Implications of this data collection method on the scope of inference (generalizability):</strong></p>
 <p>Since the data collection, both landline telephone- and cellular telephone-based surveys involve some form of random sampling, the sample can be considered representative of the population. Hence findings from this observational study can be generalized to the entire population.</p>
 <p><strong>Implications of this data collection method on the scope of inference (causality):</strong></p>
@@ -294,9 +294,9 @@ q2_female_result</code></pre></div>
 ## 8 Less than $10,000     0.3876621</code></pre>
 <p><span style="color:blue">Interpretation: There is a positive correlation between income level and female’s flu shot in past 12 months. </span></p>
 <p><strong>Research quesion 3: What is the percentage distribution of Body Mass Index (BMI) classes, i.e. “Underweight”,“Normal”, “Overweight”, and “Obesity”, for men and women.</strong></p>
-<p>BMI quantifies the amount of tissue mass (muscle, fat, and bone) in an individual, and then categorize that person as underweight, normal weight, overweight, or obese based on that value. BMI is given by the following equation for weight in pounds and height in inches:</p>
+<p>BMI quantifies the amount of tissue mass (muscle, fat, and bone) in an individual, and then categorize that person as underweight, normal weight, overweight, or obese based on that value [2]. BMI is given by the following equation for weight in pounds and height in inches:</p>
 <p><span class="math display">\[BMI = 703\times\frac{weight}{height^{2}}\]</span></p>
-<p>The original dataset is filtered for weights reported in pounds (i.e. 50 <span class="math inline">\(\leq\)</span> weight2 <span class="math inline">\(\leq\)</span> 999) and heights reported in ft/in (i.e. 200 <span class="math inline">\(\leq\)</span> height3 <span class="math inline">\(\leq\)</span> 711). The height column is further converted into values purely in inches. Then BMI values according to the above formula are computed.</p>
+<p>The original dataset is filtered for weights reported in pounds (i.e. 50 <span class="math inline">\(\leq\)</span> weight2 <span class="math inline">\(\leq\)</span> 999) and heights reported in ft/in (i.e. 200 <span class="math inline">\(\leq\)</span> height3 <span class="math inline">\(\leq\)</span> 711) [3]. The height column is further converted into values purely in inches. Then BMI values according to the above formula are computed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q3_brfss2013 &lt;-<span class="st"> </span>brfss2013 %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(!(<span class="kw">is.na</span>(sex)),!(<span class="kw">is.na</span>(weight2)),!(<span class="kw">is.na</span>(height3))) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(weight2 !=<span class="st"> &quot;&quot;</span>, height3 !=<span class="st"> &quot;&quot;</span>) %&gt;%
@@ -337,7 +337,7 @@ q3_result</code></pre></div>
 ## 1   Male 14.98323  13.81041 166.9015 182162
 ## 2 Female 16.26364  13.37889 232.1636 163584</code></pre>
 <p><span style="color:blue">Interpretation: Since the distribution of BMI for both male and female are not symmetric, a good measure of center is the median. The median for male BMI is 13.81041 and the median for female BMI is 13.37889.</span></p>
-<p>Classification based on BMI values into BMI classes (i.e. Underweight, Normal, Overweight and Obesity).</p>
+<p>Classification based on BMI values into BMI classes (i.e. Underweight, Normal, Overweight and Obesity) [2].</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q3_class_brfss2013 &lt;-<span class="st"> </span>q3_brfss2013 %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">bmi_class =</span>  <span class="kw">ifelse</span>(bmi&lt;<span class="fl">18.5</span>,<span class="st">&quot;Underweight&quot;</span>,<span class="kw">ifelse</span>(bmi&lt;<span class="dv">25</span>,<span class="st">&quot;Normal&quot;</span>,<span class="kw">ifelse</span>(bmi&lt;<span class="dv">30</span>,<span class="st">&quot;Overweight&quot;</span>,<span class="st">&quot;Obesity&quot;</span>))))</code></pre></div>
 <p>Bar plot for BMI classes according to sex</p>
@@ -356,6 +356,13 @@ q3_result2</code></pre></div>
 ## 1   Male          0.8030599     0.1498886        0.02864483   0.01840669
 ## 2 Female          0.7868801     0.1320484        0.03780321   0.04326829</code></pre>
 <p><span style="color:blue">Interpretation: Majority of the sample population, 80.3% and 78.7% for men and women respectively, are underweight according to BMI standard. </span></p>
+<hr />
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>[1] The BRFSS Data User Guide 2013. Retrieved May 28, 2016. <a href="http://www.cdc.gov/brfss/data_documentation/pdf/userguidejune2013.pdf">link</a></p>
+<p>[2] Wikipedia - Body mass index. Retrieved May 28, 2016. <a href="https://en.wikipedia.org/wiki/Body_mass_index">link</a></p>
+<p>[3] BRFSS Cookbook 2013. Retrieved May 28, 2016. <a href="https://d3c33hcgiwev3.cloudfront.net/_e34476fda339107329fc316d1f98e042_brfss_codebook.html?Expires=1464566400&amp;Signature=YGA1liDKz1Ezue6MnRYblyxWRn5bU9Gg-vVGiaqwEghDK~GsEy06za6HmeLe7RGT3YKLJ3f7jTYywKUXfGFepfdTvPAfP9im-5mmwMcDaIs9wZsyI3HpLkymdLEZ3YduG4nxrxlvabYMXpEUUagAHCNs1fTWMfbyCOBWansWrfg_&amp;Key-Pair-Id=APKAJLTNE6QMUY6HBC5A">link</a></p>
 </div>
 
 
