@@ -66,11 +66,57 @@ NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk"
 button (green button with orange arrow) above. Make sure that your code is visible
 in the project you submit. Delete this note when before you submit your work.
 
-**Research quesion 1:**
+**Research quesion 1: What are the health care coverage ratio across different income levels for men and women?**
+
+The dataset is divided by sex into 2 sets, and entry with not applicable (NA) cell for income and health care coverage column are filtered.
 
 ```{r}
+q1_male_brfss2013 <- brfss2013 %>%
+  filter(sex == "Male", !(is.na(income2)),!(is.na(hlthpln1)))
+q1_female_brfss2013 <- brfss2013 %>%
+  filter(sex == "Female", !(is.na(income2)),!(is.na(hlthpln1)))
+```
+
+Bar plot for Male's health care coverage (hlthpln1) against income level (income2)
+
+```{r}
+ggplot(data = q1_male_brfss2013, aes(x = income2, fill = hlthpln1)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  labs(title = "Male's Health care coverage (hlthpln1) against Income level (income2)")
+```
+
+Summary statistics for Male's health care coverage (hlthpln1) grouped by income level (income2)
+
+```{r}
+q1_male_result <- q1_male_brfss2013 %>%
+  group_by(income2) %>%
+  summarise(hlthpln1_rate = sum(hlthpln1 == "Yes") / n()) %>%
+  arrange(desc(hlthpln1_rate))
+q1_male_result
+```
+<span style="color:blue">Interpretation: There is a positive correlation between income level and male's health care coverage. </span>
+
+Bar plot for Female's health care coverage (hlthpln1) against income level (income2)
+
+```{r}
+ggplot(data = q1_female_brfss2013, aes(x = income2, fill = hlthpln1)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  labs(title = "Female's Health care coverage (hlthpln1) against Income level (income2)")
+```
+
+Summary statistics for Female's health care coverage (hlthpln1) grouped by income level (income2)
+
+```{r}
+q1_female_result <- q1_female_brfss2013 %>%
+  group_by(income2) %>%
+  summarise(hlthpln1_rate = sum(hlthpln1 == "Yes") / n()) %>%
+  arrange(desc(hlthpln1_rate))
+q1_female_result
 
 ```
+<span style="color:blue">Interpretation: There is a positive correlation between income level and female's health care coverage.</span>
 
 
 
