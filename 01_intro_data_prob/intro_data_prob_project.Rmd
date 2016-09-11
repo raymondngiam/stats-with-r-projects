@@ -120,11 +120,56 @@ q1_female_result
 
 
 
-**Research quesion 2:**
+**Research quesion 2: What are the flu shot in the past 12 months ratio across different income levels for men and women?**
+
+The dataset is divided by sex into 2 sets, and entry with not applicable (NA) cell for income and flu shot column are filtered.
 
 ```{r}
-
+q2_male_brfss2013 <- brfss2013 %>%
+  filter(sex == "Male", !(is.na(income2)),!(is.na(flushot6)))
+q2_female_brfss2013 <- brfss2013 %>%
+  filter(sex == "Female", !(is.na(income2)),!(is.na(flushot6)))
 ```
+
+Bar plot for Male's flu shot in past 12 months (flushot6) against income level (income2)
+
+```{r}
+ggplot(data = q2_male_brfss2013, aes(x = income2, fill = flushot6)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  labs(title = "Male's Flu shot in past 12 months (flushot6) against Income level (income2)")
+```
+
+Summary statistics for Male's flu shot (flushot6) grouped by income level (income2)
+
+```{r}
+q2_male_result <- q2_male_brfss2013 %>%
+  group_by(income2) %>%
+  summarise(flushot6_rate = sum(flushot6 == "Yes") / n()) %>%
+  arrange(desc(flushot6_rate))
+q2_male_result
+```
+<span style="color:blue">Interpretation: There is a positive correlation between income level and male's flu shot in past 12 months. </span>
+
+Bar plot for Female's flu shot in past 12 months (flushot6) against income level (income2)
+
+```{r}
+ggplot(data = q2_female_brfss2013, aes(x = income2, fill = flushot6)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  labs(title = "Female's Flu shot in past 12 months (flushot6) against Income level (income2)")
+```
+
+Summary statistics for Female's flu shot (flushot6) grouped by income level (income2)
+
+```{r}
+q2_female_result <- q2_female_brfss2013 %>%
+  group_by(income2) %>%
+  summarise(flushot6_rate = sum(flushot6 == "Yes") / n()) %>%
+  arrange(desc(flushot6_rate))
+q2_female_result
+```
+<span style="color:blue">Interpretation: There is a positive correlation between income level and female's flu shot in past 12 months. </span>
 
 
 
