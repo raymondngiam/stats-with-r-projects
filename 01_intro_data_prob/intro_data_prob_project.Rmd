@@ -173,9 +173,90 @@ q2_female_result
 
 
 
-**Research quesion 3:**
+**Research quesion 3: What is the percentage distribution of Body Mass Index (BMI) classes, i.e. "Underweight","Normal", "Overweight", and "Obesity", for men and women.**
+
+BMI quantifies the amount of tissue mass (muscle, fat, and bone) in an individual, and then categorize that person as underweight, normal weight, overweight, or obese based on that value. BMI is given by the following equation for weight in pounds and height in inches:
+
+$$BMI = 703\times\frac{weight}{height^{2}}$$
+
+The original dataset is filtered for weights reported in pounds (i.e. 50 $\leq$ weight2 $\leq$ 999) and heights reported in ft/in (i.e. 200 $\leq$ height3 $\leq$ 711). The height column is further converted into values purely in inches. Then BMI values according to the above formula are computed.
 
 ```{r}
-
+q3_brfss2013 <- brfss2013 %>%
+  filter(!(is.na(sex)),!(is.na(weight2)),!(is.na(height3))) %>%
+  filter(weight2 != "", height3 != "") %>%
+  mutate(weightNumeric = as.numeric(weight2) ) %>%
+  filter(weightNumeric >=50, weightNumeric <=999) %>%
+  filter(height3 >=200, height3 <=711) %>%
+  mutate(heightInch =  floor(height3/100)*12 + (height3-floor(height3/100)*100)) %>%
+  mutate(bmi = 703 * weightNumeric / (heightInch*heightInch))
 ```
+
+Histogram for Male's BMI values
+
+```{r}
+q3_male_brfss2013 <- q3_brfss2013 %>%
+  filter(sex == "Male")
+ggplot(data = q3_male_brfss2013, aes(x = bmi)) +
+  geom_histogram(binwidth = 1) + 
+  labs(title = "Male's BMI values")
+```
+
+<span style="color:blue">Interpretation: The distribution of Male's BMI values is skewed to the right.  </span>   
+
+Histogram for Female's BMI values
+
+```{r}
+q3_female_brfss2013 <- q3_brfss2013 %>%
+  filter(sex == "Female")
+ggplot(data = q3_female_brfss2013, aes(x = bmi)) +
+  geom_histogram(binwidth = 1)+ 
+  labs(title = "Female's BMI values")
+```
+
+<span style="color:blue">Interpretation: The distribution of Female's BMI values is also skewed to the right.  </span>   
+
+Box plot for BMI values according to sex
+
+```{r}
+ggplot(data = q3_brfss2013, aes(x = sex, y = bmi)) +
+  geom_boxplot()+ 
+  labs(title = "BMI values against sex")
+```
+
+Summary statistics BMI values according to sex
+
+```{r}
+q3_result <- q3_brfss2013 %>%
+  group_by(sex) %>%
+  summarise(meanBMI = mean(bmi), medianBMI = median(bmi),maxBMI = max(bmi), n = n()) 
+q3_result
+```
+
+<span style="color:blue">Interpretation: Since the distribution of BMI for both male and female are not symmetric, a good measure of center is the median. The median for male BMI is 13.81041 and the median for female BMI is 13.37889.</span>    
+
+Classification based on BMI values into BMI classes (i.e. Underweight, Normal, Overweight and Obesity).
+
+```{r}
+q3_class_brfss2013 <- q3_brfss2013 %>%
+  mutate(bmi_class =  ifelse(bmi<18.5,"Underweight",ifelse(bmi<25,"Normal",ifelse(bmi<30,"Overweight","Obesity"))))
+```
+
+Bar plot for BMI classes according to sex
+
+```{r}
+ggplot(data = q3_class_brfss2013, aes(x = sex, fill = bmi_class)) +
+  geom_bar() +
+  labs(title = "BMI classes against sex")
+```
+
+Summary statistics BMI classes according to sex
+
+```{r}
+q3_result2 <- q3_class_brfss2013 %>%
+  group_by(sex) %>%
+  summarise(percentUnderWeight = sum(bmi_class == "Underweight") / n(), percentNormal = sum(bmi_class == "Normal") / n(),percentOverWeight = sum(bmi_class == "Overweight") / n(), percentObese = sum(bmi_class == "Obesity") / n()) 
+q3_result2
+```
+<span style="color:blue">Interpretation: Majority of the sample population, 80.3% and 78.7% for men and women respectively, are underweight according to BMI standard. </span> 
 
