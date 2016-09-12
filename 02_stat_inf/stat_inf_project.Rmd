@@ -34,6 +34,21 @@ load("gss.Rdata")
 
 ## Part 1: Data
 
+**How the observations in the sample are collected:**
+
+Each survey from 1972 to 2004 was an independently drawn sample of English-speaking persons 18  years of age or over, living in non-institutional arrangements within the United States.Starting in 2006 Spanish-speakers were added to the target population.
+
+Block quota sampling was used in surveys from 1972 to 1976. Full probability sampling was employed fully from 1977 onwards up to 2014.
+<br> </br>
+
+**Implications of this data collection method on the scope of inference (generalizability):**
+
+Since the data collection involves random sampling, the sample can be considered representative of the population. Hence findings from this observational study can be generalized to the entire population.
+<br> </br>
+
+**Implications of this data collection method on the scope of inference (causality):**
+
+Since this is an observational study, not an experiment where subjects are randomly assigned for specific treatments, hence, the findings on relationship among different factors only establish association but do not imply causality.
 
 * * *
 
