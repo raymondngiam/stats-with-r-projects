@@ -63,9 +63,38 @@ This research question is of interest because mother's average age at first birt
 
 ## Part 3: Exploratory data analysis
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button (green button with orange arrow) above. Make sure that your code is visible
-in the project you submit. Delete this note when before you submit your work.
+The dataset is filtered for female respondents in year 2012. Entries with not applicable (NA) cell for the "agekdbrn" (Age When First Kid Born) column are removed.
+```{r}
+q3data <- gss %>%
+  filter(year==2012,sex=="Female",!(is.na(agekdbrn)))
+N3 <- dim(q3data)[1]
+N3
+```
+
+Total sample count obtained is 846.
+
+Histogram for Female Age when First Kid Born in 2012:
+```{r}
+ggplot(data = q3data, aes(x = agekdbrn)) +
+  geom_histogram(binwidth=1) +
+  labs(title = "Female Age When First Kid Born in 2012")
+```
+
+Boxplot for Female Age when First Kid Born in 2012:
+```{r}
+ggplot(data = q3data, aes(x = 1, y = agekdbrn)) +
+  geom_boxplot() +
+  labs(title = "Female Age When First Kid Born in 2012")
+```
+
+Summary statistics for Female Age when First Kid Born in 2012:
+```{r}
+q3data %>%
+  summarize(mean_agekdbrn = mean(agekdbrn), sd_agekdbrn = sd(agekdbrn),median_agekdbrn = median(agekdbrn), IQR_agekdbrn = IQR(agekdbrn), N = n())
+```
+
+<span style="color:blue">Interpretation: The distribution for Female Age When First Kid Born in the sample polulation is skewed to the right, with mean equal 22.98 and standard deviation equal 5.19.</span>
+
 
 * * *
 
