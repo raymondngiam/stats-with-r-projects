@@ -25,7 +25,7 @@ your data file will be called `gss`. Delete this note when before you submit
 your work. 
 
 ```{r load-data}
-#load("gss.Rdata")
+load("gss.Rdata")
 ```
 
 
