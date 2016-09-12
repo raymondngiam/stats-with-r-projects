@@ -100,6 +100,48 @@ q3data %>%
 
 ## Part 4: Inference
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button (green button with orange arrow) above. Make sure that your code is visible
-in the project you submit. Delete this note when before you submit your work.
+<span style="text-decoration:underline">Point estimate</span>
+$$\bar{x} = 22.98$$
+$$s = 5.19$$
+$$n = 846$$
+
+<span style="text-decoration:underline">Hypotheses</span>
+$$H_{0} : \mu = 25.6$$
+$$H_{A} : \mu \neq 25.6$$
+
+<span style="text-decoration:underline">Check conditions</span>
+  
+  1. Independence: 
+    - 846 < 10 % of English and Spanish-speaking mothers 18 years of age or over, living in non-institutional arrangements within the United States.
+    - Random sample
+    
+    <span style="color:blue">One mother's age at first birth in the sample is independent of another.</span>
+  
+  2. Sample size / skew:
+    - From explanatory data analysis, we observed the sample distribution is skewed to the right. Due to this violation in normality assumptions, inference on mean from this sample based on normal distribution is not valid since the sampling distribution will not be normal. However, by using t-distribution and with considerably large amount of samples, i.e 846, the normal approximation should be robust to skewness in the sample distribution.
+    
+    <span style="color:blue">Nearly normal sampling distribution under t-distribution.</span>
+    
+<span style="text-decoration:underline">Inference method to be used</span>
+
+Theoretical based inference is used since the sampling distribution is nearly normal under t-distribution. t-distribution is used as the sampling distribution, and the test statistic, t score, is computed based on null hypothesis, $H_{0}$. If the corresponding p-value to the t score is lesser than the significant level, $\alpha$, $H_{0}$ is rejected. And we can conclude that the data provide convincing evidence for $H_{A}$.
+
+<span style="text-decoration:underline">Inference</span>
+
+Hypothesis testing:
+```{r}
+inference(y = agekdbrn, data = q3data, statistic = "mean", type = "ht",null = 25.6, alternative = "twosided", method = "theoretical")
+```
+
+Confidence interval:
+```{r}
+inference(y = agekdbrn, data = q3data, statistic = "mean", type = "ci", method = "theoretical")
+```
+
+<span style="text-decoration:underline">Interpretation</span>
+
+Since the p-value obtained is < 0.0001, which is lesser than the standard significant level of 5%, we reject the $H_{0}$, and conclude that the GSS survey provide convincing evidence that the mother's average age at first birth of the population in 2012 is not equal to 25.6.
+
+We can further verify that the result from the hypothesis testing with the confidence interval computed. Since we rejected $H_{0}$ which states $\mu$=25.6 at 5% significant level, the 95% confidence interval of the population mean which is (22.6345 , 23.3348) does not contain the value 25.6.
+
+<br></br>
