@@ -36,9 +36,9 @@ load("gss.Rdata")
 
 **How the observations in the sample are collected:**
 
-Each survey from 1972 to 2004 was an independently drawn sample of English-speaking persons 18  years of age or over, living in non-institutional arrangements within the United States.Starting in 2006 Spanish-speakers were added to the target population.
+Each survey from 1972 to 2004 was an independently drawn sample of English-speaking persons 18  years of age or over, living in non-institutional arrangements within the United States.Starting in 2006 Spanish-speakers were added to the target population [1].
 
-Block quota sampling was used in surveys from 1972 to 1976. Full probability sampling was employed fully from 1977 onwards up to 2014.
+Block quota sampling was used in surveys from 1972 to 1976. Full probability sampling was employed fully from 1977 onwards up to 2014 [1].
 <br> </br>
 
 **Implications of this data collection method on the scope of inference (generalizability):**
@@ -54,9 +54,9 @@ Since this is an observational study, not an experiment where subjects are rando
 
 ## Part 2: Research question
 
-**Research quesion: According "The World Factbook" by CIA, the estimated mother's average age at first birth in 2011 for the United States is 25.6. Does the GSS survey provide convincing evidence that the mother's average age at first birth of the population in 2012 is equal to 25.6?**
+**Research quesion: According "The World Factbook" by CIA, the estimated mother's average age at first birth in 2011 for the United States is 25.6 [2]. Does the GSS survey provide convincing evidence that the mother's average age at first birth of the population in 2012 is equal to 25.6?**
 
-This research question is of interest because mother's average age at first birth is an useful indicator for gauging the success of family planning programs aiming to reduce maternal mortality, increase contraceptive use - particularly among married and unmarried adolescents, delay age at first marriage, and improve the health of newborns.
+This research question is of interest because mother's average age at first birth is an useful indicator for gauging the success of family planning programs aiming to reduce maternal mortality, increase contraceptive use - particularly among married and unmarried adolescents, delay age at first marriage, and improve the health of newborns [2].
 <br></br>
 
 * * *
@@ -145,3 +145,12 @@ Since the p-value obtained is < 0.0001, which is lesser than the standard signif
 We can further verify that the result from the hypothesis testing with the confidence interval computed. Since we rejected $H_{0}$ which states $\mu$=25.6 at 5% significant level, the 95% confidence interval of the population mean which is (22.6345 , 23.3348) does not contain the value 25.6.
 
 <br></br>
+
+* * *
+
+## References
+[1] *General Social Survey 1972-2014 Cumulative Codebook*, National Opinion Research Center, University of Chicago. Retrieved 29 June, 2016.
+[Link](http://gss.norc.org/documents/codebook/GSS_Codebook.pdf)
+
+[2] *The World Factbook - Mother's Mean Age at First Birth*, Central Intelligence Agency. Retrieved 29 June, 2016.
+[Link](https://www.cia.gov/library/publications/the-world-factbook/fields/2256.html)
