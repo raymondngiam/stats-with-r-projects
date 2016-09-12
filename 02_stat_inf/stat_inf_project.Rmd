@@ -1,5 +1,6 @@
 ---
 title: "Statistical inference with the GSS data"
+author: "Raymond Ngiam Heng Aik"
 output: 
   html_document: 
     fig_height: 4
