@@ -56,9 +56,69 @@ This research question is of interest because based on past historical records w
 
 ## Part 3: Exploratory data analysis
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button above. Make sure that your code is visible in the project you submit. 
-Delete this note when before you submit your work.
+<span style="text-decoration:underline">Variables to consider for the full model</span>
+
+1. title_type
+
+2. genre
+
+3. runtime
+
+4. mpaa_rating
+
+5. imdb_rating
+
+6. imdb_num_votes
+
+7. critics_scores
+
+8. critics_rating
+
+9. best_pic_nom
+
+10. best_pic_win
+
+11. best_actor_win
+
+12. best_actress_win
+
+13. best_dir_win
+
+14. top200_box
+
+<span style="text-decoration:underline">Excluded variables:</span>
+
+1. title
+
+2. studio
+
+3. thtr_rel_year
+
+4. thtr_rel_month
+
+5. thtr_rel_day
+
+6. dvd_rel_year
+
+7. dvd_rel_month
+
+8. dvd_rel_day
+
+9. director
+
+10-14. actor1-actor5
+
+15. imdb_url
+
+16. rt_url
+
+<span style="text-decoration:underline">Reasons for exclusion variables:</span>
+
+Since we are interested to study properties of movies that are influential to the movie's popularity in general, the variable "title", "studio", "director", and "Actor1"-"Actor5" are excluded because they are too specific. If we use these variables in creating the regression model, the model will only be reasonable in the context of the existing sample of movies. We will not be able to make predictions for movies other that those with "title" among the existing sample. Same goes for "studio", "director", and "Actor1"-"Actor5".
+
+Time related variables such as theatre release date and DVD release date are also excluded because we are interested in long term popularity of movies, not popularity during release in theatre or release of DVD.
+
+Finally, IMDB url and Rotten Tomatoes url are also excluded as they are obviously irrelevant to context of this problem.
 
 * * *
 

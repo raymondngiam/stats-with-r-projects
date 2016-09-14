@@ -181,7 +181,44 @@ $(document).ready(function () {
 </div>
 <div id="part-3-exploratory-data-analysis" class="section level2">
 <h2>Part 3: Exploratory data analysis</h2>
-<p>NOTE: Insert code chunks as needed by clicking on the “Insert a new code chunk” button above. Make sure that your code is visible in the project you submit. Delete this note when before you submit your work.</p>
+<p><span style="text-decoration:underline">Variables to consider for the full model</span></p>
+<ol style="list-style-type: decimal">
+<li><p>title_type</p></li>
+<li><p>genre</p></li>
+<li><p>runtime</p></li>
+<li><p>mpaa_rating</p></li>
+<li><p>imdb_rating</p></li>
+<li><p>imdb_num_votes</p></li>
+<li><p>critics_scores</p></li>
+<li><p>critics_rating</p></li>
+<li><p>best_pic_nom</p></li>
+<li><p>best_pic_win</p></li>
+<li><p>best_actor_win</p></li>
+<li><p>best_actress_win</p></li>
+<li><p>best_dir_win</p></li>
+<li><p>top200_box</p></li>
+</ol>
+<p><span style="text-decoration:underline">Excluded variables:</span></p>
+<ol style="list-style-type: decimal">
+<li><p>title</p></li>
+<li><p>studio</p></li>
+<li><p>thtr_rel_year</p></li>
+<li><p>thtr_rel_month</p></li>
+<li><p>thtr_rel_day</p></li>
+<li><p>dvd_rel_year</p></li>
+<li><p>dvd_rel_month</p></li>
+<li><p>dvd_rel_day</p></li>
+<li><p>director</p></li>
+</ol>
+<p>10-14. actor1-actor5</p>
+<ol start="15" style="list-style-type: decimal">
+<li><p>imdb_url</p></li>
+<li><p>rt_url</p></li>
+</ol>
+<p><span style="text-decoration:underline">Reasons for exclusion variables:</span></p>
+<p>Since we are interested to study properties of movies that are influential to the movie’s popularity in general, the variable “title”, “studio”, “director”, and “Actor1”-“Actor5” are excluded because they are too specific. If we use these variables in creating the regression model, the model will only be reasonable in the context of the existing sample of movies. We will not be able to make predictions for movies other that those with “title” among the existing sample. Same goes for “studio”, “director”, and “Actor1”-“Actor5”.</p>
+<p>Time related variables such as theatre release date and DVD release date are also excluded because we are interested in long term popularity of movies, not popularity during release in theatre or release of DVD.</p>
+<p>Finally, IMDB url and Rotten Tomatoes url are also excluded as they are obviously irrelevant to context of this problem.</p>
 <hr />
 </div>
 <div id="part-4-modeling" class="section level2">
