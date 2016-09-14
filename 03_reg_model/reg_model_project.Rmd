@@ -153,6 +153,122 @@ ggplot(data = movies_added_predictors, aes(x=limdb_num_votes)) +
   labs(title = "Histogram of limdb_num_votes")
 ```
 
+<br> </br>
+
+**Bivariate analysis between explanatory variable and response variable:**
+
+1) Title type and audience score
+
+Box plot to visualize the differences in audience score distribution among categorical variable, title type.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=title_type, y=audience_score)) + 
+  geom_boxplot() + 
+  labs(title = "Boxplot of Audience Score against Title Type")
+```
+
+Summary statistics
+```{r}
+movies_added_predictors %>%
+  group_by(title_type) %>%
+  summarize(mean=mean(audience_score), sd=sd(audience_score),median=median(audience_score),IQR=IQR(audience_score),min=min(audience_score),max=max(audience_score), count=n())
+```
+
+<span style="color:blue">Interpretation: There are differences in the center of the distribution of audience score among different classes of title type in this data sample. The "Documentary" title type has the highest audience score on average compared to the rest.</span>
+<br> </br>
+
+2) Genre and audience score
+
+Box plot to visualize the differences in audience score distribution among categorical variable, genre.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=genre, y=audience_score)) + 
+  geom_boxplot() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  labs(title = "Boxplot of Audience Score against Genre")
+```
+
+Summary statistics
+```{r}
+movies_added_predictors %>%
+  group_by(genre) %>%
+  summarize(mean=mean(audience_score), sd=sd(audience_score),median=median(audience_score),IQR=IQR(audience_score),min=min(audience_score),max=max(audience_score), count=n())
+```
+
+<span style="color:blue">Interpretation: There are differences in the center of the distribution of audience score among different classes of genre in this data sample. The "Documentary" genre has the highest audience score on average compared to the rest.</span>
+<br> </br>
+
+3) Critics rating and audience score
+
+Box plot to visualize the differences in audience score distribution among categorical variable, genre.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=critics_rating, y=audience_score)) + 
+  geom_boxplot() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  labs(title = "Boxplot of Audience Score against Critics Rating")
+```
+
+Summary statistics
+```{r}
+movies_added_predictors %>%
+  group_by(critics_rating) %>%
+  summarize(mean=mean(audience_score), sd=sd(audience_score),median=median(audience_score),IQR=IQR(audience_score),min=min(audience_score),max=max(audience_score), count=n())
+```
+
+<span style="color:blue">Interpretation: There are differences in the center of the distribution of audience score among different classes of critics rating in this data sample. The "Certified Fresh" critics rating has the highest audience score on average compared to the rest.</span>
+<br> </br>
+
+4) Runtime and audience score
+
+Scatter plot to visualize the correlation between runtime and audience score.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=runtime, y=audience_score)) + 
+  geom_point() + 
+  geom_smooth(method="lm", se=FALSE) + 
+  labs(title = "Scatter plot of Audience Score against Runtime")
+```
+
+Summary statistic on the correlation.
+```{r}
+cor(movies_added_predictors$runtime, movies_added_predictors$audience_score)
+```
+
+<span style="color:blue">Interpretation: There is a weak, positive correlation of 0.20 between runtime and audience score.</span>
+<br> </br>
+
+5) IMDb Rating and audience score
+
+Scatter plot to visualize the correlation between IMDb rating and audience score.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=imdb_rating, y=audience_score)) + 
+  geom_jitter() + 
+  geom_smooth(method="lm", se=FALSE) + 
+  labs(title = "Scatter plot of Audience Score against IMDb Rating")
+```
+
+Summary statistic on the correlation.
+```{r}
+cor(movies_added_predictors$imdb_rating, movies_added_predictors$audience_score)
+```
+
+<span style="color:blue">Interpretation: There is a strong positive correlation of 0.86 between IMDb rating and audience score.</span>
+<br> </br>
+
+6) Critics Score and audience score
+
+Scatter plot to visualize the correlation between critics score and audience score.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=critics_score, y=audience_score)) + 
+  geom_jitter() + 
+  geom_smooth(method="lm", se=FALSE) + 
+  labs(title = "Scatter plot of Audience Score against Critics Score")
+```
+
+Summary statistic on the correlation.
+```{r}
+cor(movies_added_predictors$critics_score, movies_added_predictors$audience_score)
+```
+
+<span style="color:blue">Interpretation: There is a strong positive correlation of 0.70 between critics score and audience score.</span>
+
 * * *
 
 ## Part 4: Modeling
