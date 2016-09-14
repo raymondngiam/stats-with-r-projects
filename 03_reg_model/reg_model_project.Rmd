@@ -505,3 +505,10 @@ predict(movies_mlr_final, new_movie, interval = "prediction", level = 0.95)
 
 ## Part 6: Conclusion
 
+Our model with 5 explanatory variables, namely **genre**, **score**, **limdb_num_votes**, **critics_rating**, and **best_actress_win** has decent performance in predicting audience score of future movies. 66.42% of the variability of the audience score is explained by our model.
+
+From our model, we have learned that there are non-intuitive relationships between the variable **critics_rating** and **best_actress_win** against the response variable **audience_score**. It appears that having worst critics rating in Rotten Tomatoes site has positive effect on the audience score, and having Oscar Best Actress in the movie has negative effect on the audience score, according to our model. 
+
+One shortcoming of the current study is the limited quantity of explanatory variable for the linear regression and modeling. Apart from that, our current study also did not explore the interaction among the explanatory variables. In future studies, more explanatory variables should be included and also interaction among explanatory variables should be considered.
+
+* * *
