@@ -452,9 +452,54 @@ All else held constant, the model predicts that movies with no Oscar best actres
 
 ## Part 5: Prediction
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button above. Make sure that your code is visible in the project you submit. 
-Delete this note when before you submit your work.
+Based on the multiple linear regression model we came up with, we would like to predict Rotten Tomatoes' audience score for the movie "The Martian" of year 2015, which is not in the existing dataset. Below are the related details about the movie:
+
+Movie:  **The Martian**
+
+Feature Film: **Yes**
+
+Genre:  **Science Fiction & Fantasy** [2]
+
+Release date: **2 October 2015** [2]
+
+Runtime:  **164 min** [2]
+
+MPAA Rating: **PG-13** [3]
+
+IMDb Number of Votes: **470,917** [3]
+
+IMDb Rating:  **8.1** [3]
+
+Rotten Tomatoes Critics Score:  **92** [2]
+
+Oscar Best Picture Nomination: **Yes** [4]
+
+Oscar Best Picture Won: **No** [4]
+
+Oscar Best Actor Award: **No** [5]
+
+Oscar Best Actress Award: **No** [6]
+
+Oscar Best Director Award: **No** [7]
+
+Top200 Box Office Listing:  **No** [8]
+<br> </br>
+
+Making the prediction
+
+```{r}
+new_movie <- data.frame(genre = "Science Fiction & Fantasy", score = (8.1*10 + 92)/2, limdb_num_votes = log10(470917), critics_rating = "Certified Fresh", best_pic_nom = "yes", best_actress_win = "no")
+predict(movies_mlr_final, new_movie)
+```
+
+Prediction with 95% confidence interval
+
+```{r}
+predict(movies_mlr_final, new_movie, interval = "prediction", level = 0.95)
+```
+
+<span style="color:blue">From Rotten Tomatoes, the audience score of the movie "The Martian" retrieved during the writing on this assignment, i.e. 09 Aug, 2016, is 92 [2]. Our prediction of 88.13 tends to underestimate audience score. However, the actual audience score lies within the 95% confidence intervals of (63.22, 113.05).</span>
+
 
 * * *
 
