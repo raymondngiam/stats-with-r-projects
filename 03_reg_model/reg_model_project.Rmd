@@ -1,6 +1,7 @@
 ---
 title: "Modeling and prediction for movies"
 author: "Raymond Ngiam Heng Aik"
+date: "09 Aug 2016"
 output: 
   html_document: 
     fig_height: 4
