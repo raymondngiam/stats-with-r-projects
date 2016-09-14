@@ -405,6 +405,49 @@ qqline(movies_mlr_final$residuals)
 
 <br> </br>
 
+**Interpretation of model coefficients**
+```{r}
+summary(movies_mlr_final)
+```
+
+<span style="text-decoration:underline">Intercept:</span>
+
+Movies in the **Action & Adventure genre**, with **critics rating Certified Fresh**, **no Oscar best picture nomination**, **no Oscar best actress**, **zero log of IMDb number of votes**, and **zero score** are expected on average to have audience score of **-24.37**.
+
+<span style="text-decoration:underline">Slopes:</span>
+
+All else held constant, the model predicts that the Animation genre have **8.33** point **higher** in audience score than the Action & Adventure genre on average.
+
+All else held constant, the model predicts that the Art House & International genre have **11.60** point **higher** in audience score than the Action & Adventure genre on average.
+
+All else held constant, the model predicts that the Comedy genre have **2.36** point **higher** in audience score than the Action & Adventure genre on average.
+
+All else held constant, the model predicts that the Documentary genre have **12.94** point **higher** in audience score than the Action & Adventure genre on average.
+
+All else held constant, the model predicts that the Drama genre have **3.60** point **higher** in audience score than the Action & Adventure genre on average.
+
+All else held constant, the model predicts that the Horror genre have **4.52** point **lower** in audience score than the Action & Adventure genre on average.
+
+All else held constant, the model predicts that the Musical & Performing Arts genre have **11.87** point **higher** in audience score than the Action & Adventure genre on average.
+
+All else held constant, the model predicts that the Mystery & Suspense genre have **3.81** point **lower** in audience score than the Action & Adventure genre on average.
+
+All else held constant, the model predicts that the Other genre have **4.93** point **higher** in audience score than the Action & Adventure genre on average.
+
+All else held constant, the model predicts that the Science Fiction & Fantasy genre have **1.42** point **lower** in audience score than the Action & Adventure genre on average.
+
+All else held constant, for each 1 point increase in score the model predicts the audience score to be **higher** on average by **0.93** point.
+
+All else held constant, for each 1 point increase in log of IMDb number of votes the model predicts the audience score to be **higher** on average by **5.12** point.
+
+All else held constant, the model predicts that the critics rating Fresh have **1.64** point **higher** in audience score than the the critics rating Certified Fresh on average.
+
+All else held constant, the model predicts that the critics rating Rotten have **9.10** point **higher** in audience score than the the critics rating Certified Fresh on average.
+
+All else held constant, the model predicts that movies with Oscar best picture nomination have **4.13** point **higher** in audience score on average than the ones without Oscar Best Picture Nomination.
+
+All else held constant, the model predicts that movies with no Oscar best actress have **2.71** point **lower** in audience score on average than the ones which did not win.
+
 * * *
 
 ## Part 5: Prediction
