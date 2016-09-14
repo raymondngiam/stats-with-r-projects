@@ -17,6 +17,7 @@ library(ggplot2)
 library(dplyr)
 library(statsr)
 library(GGally)
+library(leaps)
 ```
 
 ### Load data
@@ -295,9 +296,73 @@ movies_added_predictors <- movies_added_predictors %>%
 
 ## Part 4: Modeling
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button above. Make sure that your code is visible in the project you submit. 
-Delete this note when before you submit your work.
+**Model parameters**
+
+Continue from our explanatory data analysis, we ended up with **13** explanatory variables as listed below. We will use these updated explanatory variables as the full model for our model selection: 
+
++ **title_type**
++ **genre**
++ **runtime**
++ **mpaa_rating**
++ <span style="text-decoration:line-through">imdb_rating</span> 
+<span style="color:blue;font-weight:bold">score</span>
++ <span style="text-decoration:line-through">imdb_num_votes</span> 
+<span style="color:blue;font-weight:bold">limdb_num_votes</span>
++ <span style="text-decoration:line-through">critics_score</span>
++ **critics_rating**
++ **best_pic_nom**
++ **best_pic_win**
++ **best_actor_win**
++ **best_actress_win**
++ **best_dir_win**
++ **top200_box**
+
+<br> </br>
+
+**Model selection**
+
+The baseline linear model with all 13 explanatory variables has an adjusted R squared value of **0.6623**.
+
+```{r}
+data_train<-movies_added_predictors %>%
+  dplyr::select(audience_score,title_type,genre,runtime,score,limdb_num_votes,critics_rating, best_pic_nom,best_pic_win,best_actor_win,best_actress_win,best_dir_win,top200_box)
+modelFull = lm(audience_score ~ ., data=data_train)
+modelFullSummary<-summary(modelFull)
+modelFullSummary$adj.r.squared
+```
+
+For model selection, we use adjusted R-squared as the model selection criteria. Adjusted R-squared is chosen over p-value because it produces more reliable prediction. We will use the *regsubsets* function from the **leaps** package to produce sets of candidate models with different sizes of variable.
+
+```{r}
+leaps<-regsubsets(audience_score~.,data=data_train,nbest=1,nvmax=13,method="exhaustive")
+leaps
+plot(leaps,scale="adjr2",main="Adjusted R^2")
+```
+
+We then take the candidate model of specific number of variable with the highest adjusted R squared. This normally corresponds to the candidate model largest number of variables as it has more chance to improve the explained variability and also contains the rest of the variables.
+
+```{r}
+leaps.summary<-summary(leaps)
+plot(leaps.summary$adjr2, xlab = "num of Variables", ylab = "AdjR^2", main = "AdjR^2 vs num of variables")
+idxAdjRSqrd<-which.max(leaps.summary$adjr2)
+points(idxAdjRSqrd, leaps.summary$adjr2[idxAdjRSqrd], pch = 20, col = "red")
+```
+
+This maybe otherwise for other model selection criteria like the BIC (we minimize the BIC instead of maximizing it):
+
+```{r}
+plot(leaps.summary$bic, xlab = "num of Variables", ylab = "BIC", main = "BIC vs num of variables")
+idxBICMin<-which.min(leaps.summary$bic)
+points(idxBICMin, leaps.summary$bic[idxBICMin], pch = 20, col = "red")
+```
+
+Next, we determine the variables that are included in the model with the highest adjusted R squared, and then create the final model, **movies_mlr_final**.
+
+```{r}
+coef(leaps,idxAdjRSqrd)
+movies_mlr_final<-lm(audience_score ~ genre + score + limdb_num_votes + critics_rating + best_pic_nom + best_actress_win, data=data_train)
+movies_mlr_final
+```
 
 * * *
 
