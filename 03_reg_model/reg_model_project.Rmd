@@ -364,6 +364,47 @@ movies_mlr_final<-lm(audience_score ~ genre + score + limdb_num_votes + critics_
 movies_mlr_final
 ```
 
+<br> </br>
+
+**Model diagnostics**
+
+<span style="text-decoration:underline">Linearity:</span>
+
+Plot of residuals vs fitted values
+```{r}
+ggplot(data = movies_mlr_final, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  xlab("Fitted values") +
+  ylab("Residuals") +
+  labs(title = "Residuals vs Fitted")
+```
+
+<span style="color:blue">Random scatter around zero in residual plot. Hence relationship between response variable and explanatory variables should be linear.</span>
+
+<span style="text-decoration:underline">Nearly normal residuals:</span>
+
+Histogram of residuals
+
+```{r}
+plot(density(movies_mlr_final$residuals))
+```
+
+Normal probability plot of residuals
+
+```{r}
+qqnorm(movies_mlr_final$residuals)  
+qqline(movies_mlr_final$residuals) 
+```
+
+<span style="color:blue">From the histogram, residual distribution of the current model is slightly skewed to the right. And from the normal probability plot, there are some deviation from normality at the higher end. The condition for nearly normal residuals is only fairly satisfied.</span>
+
+<span style="text-decoration:underline">Constant variability:</span>
+
+<span style="color:blue">From the residuals vs fitted plot, the condition for constant variability is also only fairly satisfied.</span>
+
+<br> </br>
+
 * * *
 
 ## Part 5: Prediction
