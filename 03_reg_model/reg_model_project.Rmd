@@ -34,7 +34,7 @@ load("movies.Rdata")
 
 **How the observations in the sample are collected:**
 
-The data set is comprised of 651 randomly sampled movies produced and released before 2016.
+The data set is comprised of 651 randomly sampled movies produced and released before 2016 [1].
 <br></br>
 
 **Implications of this data collection method on the scope of inference (generalizability):**
@@ -512,3 +512,25 @@ From our model, we have learned that there are non-intuitive relationships betwe
 One shortcoming of the current study is the limited quantity of explanatory variable for the linear regression and modeling. Apart from that, our current study also did not explore the interaction among the explanatory variables. In future studies, more explanatory variables should be included and also interaction among explanatory variables should be considered.
 
 * * *
+
+## References
+
+[1] Codebook for Movies dataset. Retrieved 09 Aug, 2016 [Link](https://d3c33hcgiwev3.cloudfront.net/_73393031e98b997cf2445132f89606a1_movies_codebook.html?Expires=1470614400&Signature=cwjr6N0ekSHF6U4FyNdhWWVBzB0pyefJD70RJxNKAT82ajruZOHul00dLW1hSnFRkskEC18tq23ns2lAQ2cS9iIdQlTPIZsV2U5vPtk9WW8gJQNH5P08BRdqFPugZbudBPQWnb9j2bnkavxYP5abZ~WuEFzyH8GkiBMd92erVKc_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)
+
+[2] The Martian (2015) - Rotten Tomatoes. Retrieved 09 Aug, 2016. [Link](https://www.rottentomatoes.com/m/the_martian/)
+
+[3] The Martian (2015) - IMDb. Retrieved 09 Aug, 2016. [Link](http://www.imdb.com/title/tt3659388/)
+
+[4] The Martian - Awards - IMDb. Retrieve 09 Aug, 2016.
+[Link](http://www.imdb.com/title/tt3659388/awards)
+
+[5] Matt Damon - Awards - IMDb. Retrieve 09 Aug, 2016.
+[Link](http://www.imdb.com/name/nm0000354/awards)
+
+[6] Jessica Chastain - Awards - IMDb. Retrieve 09 Aug, 2016.
+[Link](http://www.imdb.com/name/nm1567113/awards)
+
+[7] Ridley Scott - Awards - IMDb. Retrieve 09 Aug, 2016.
+[Link](http://www.imdb.com/name/nm0000631/awards)
+
+[8] All Time Box Office Adjusted for Ticket Price Inflation. Retrieved 09 Aug, 2016. [Link](http://www.boxofficemojo.com/alltime/adjusted.htm)
