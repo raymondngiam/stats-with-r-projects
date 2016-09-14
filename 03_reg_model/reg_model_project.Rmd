@@ -120,6 +120,39 @@ Time related variables such as theatre release date and DVD release date are als
 
 Finally, IMDB url and Rotten Tomatoes url are also excluded as they are obviously irrelevant to context of this problem.
 
+```{r}
+movies_no_na <- na.omit(movies)
+N = nrow(movies_no_na)
+N
+```
+
+**Univariate analysis**
+
+One of the numeric explanatory variables that is of particular interest is **imdb_num_votes**.
+
+Below is the histogram for the distribution of **imdb_num_votes**,
+
+```{r}
+ggplot(data = movies_no_na, aes(x=imdb_num_votes)) +
+  geom_histogram(binwidth = 1500) +
+  labs(title = "Histogram of imdb_num_votes")
+range(movies_no_na$imdb_num_votes)
+```
+
+The range of **imdb_num_votes** is (183, 893008), and it is heavily right-skewed. It will be more meaningful if we apply a log transformation, and name it as a new variable, **limdb_num_votes**.
+
+```{r}
+movies_added_predictors <- movies_no_na %>%
+  mutate(limdb_num_votes = log10(imdb_num_votes))
+```
+
+Histogram of **limdb_num_votes**
+```{r}
+ggplot(data = movies_added_predictors, aes(x=limdb_num_votes)) +
+  geom_histogram(binwidth = 0.1) +
+  labs(title = "Histogram of limdb_num_votes")
+```
+
 * * *
 
 ## Part 4: Modeling
