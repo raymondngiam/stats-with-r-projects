@@ -176,7 +176,31 @@ $(document).ready(function () {
 </div>
 <div id="part-2-data-manipulation" class="section level2">
 <h2>Part 2: Data manipulation</h2>
-<p>NOTE: Insert code chunks as needed by clicking on the “Insert a new code chunk” button above. Make sure that your code is visible in the project you submit. Delete this note when before you submit your work.</p>
+<p>Entries with NA (Not Applicable) cell are removed from the dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies_no_na &lt;-<span class="st"> </span><span class="kw">na.omit</span>(movies)
+N =<span class="st"> </span><span class="kw">nrow</span>(movies_no_na)
+N</code></pre></div>
+<pre><code>## [1] 619</code></pre>
+<p>New variables are created as follows:</p>
+<ul>
+<li><strong>feature_film</strong>: “yes” if <strong>title_type</strong> is Feature Film, “no” otherwise</li>
+<li><strong>drama</strong>: “yes” if <strong>genre</strong> is Drama, “no” otherwise</li>
+<li><strong>mpaa_rating_R</strong>: “yes” if <strong>mpaa_rating</strong> is R, “no” otherwise</li>
+<li><strong>oscar_season</strong>: “yes” if movie is released in November, October, or December (based on <strong>thtr_rel_month</strong>), “no” otherwise</li>
+<li><strong>summer_season</strong>: “yes” if movie is released in May, June, July, or August (based on <strong>thtr_rel_month</strong>), “no” otherwise</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies_added_predictors &lt;-<span class="st"> </span>movies_no_na %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">feature_film =</span> <span class="kw">if_else</span>(title_type==<span class="st">&quot;Feature Film&quot;</span>,<span class="st">&quot;yes&quot;</span>,<span class="st">&quot;no&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">drama =</span> <span class="kw">if_else</span>(genre==<span class="st">&quot;Drama&quot;</span>,<span class="st">&quot;yes&quot;</span>,<span class="st">&quot;no&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mpaa_rating_R =</span> <span class="kw">if_else</span>(mpaa_rating==<span class="st">&quot;R&quot;</span>,<span class="st">&quot;yes&quot;</span>,<span class="st">&quot;no&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">oscar_season =</span> <span class="kw">if_else</span>(<span class="kw">is.element</span>(thtr_rel_month,<span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>)),<span class="st">&quot;yes&quot;</span>,<span class="st">&quot;no&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">summer_season =</span> <span class="kw">if_else</span>(<span class="kw">is.element</span>(thtr_rel_month,<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)),<span class="st">&quot;yes&quot;</span>,<span class="st">&quot;no&quot;</span>))
+
+movies_added_predictors$feature_film =<span class="st"> </span><span class="kw">factor</span>(movies_added_predictors$feature_film, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))
+movies_added_predictors$drama =<span class="st"> </span><span class="kw">factor</span>(movies_added_predictors$drama, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))
+movies_added_predictors$mpaa_rating_R =<span class="st"> </span><span class="kw">factor</span>(movies_added_predictors$mpaa_rating_R, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))
+movies_added_predictors$oscar_season =<span class="st"> </span><span class="kw">factor</span>(movies_added_predictors$oscar_season, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))
+movies_added_predictors$summer_season =<span class="st"> </span><span class="kw">factor</span>(movies_added_predictors$summer_season, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</code></pre></div>
 <hr />
 </div>
 <div id="part-3-exploratory-data-analysis" class="section level2">

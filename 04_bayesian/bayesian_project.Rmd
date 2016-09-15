@@ -49,9 +49,35 @@ Since this is an observational study, not an experiment where subjects are rando
 
 ## Part 2: Data manipulation
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button above. Make sure that your code is visible in the project you submit. 
-Delete this note when before you submit your work.
+Entries with NA (Not Applicable) cell are removed from the dataset.
+```{r}
+movies_no_na <- na.omit(movies)
+N = nrow(movies_no_na)
+N
+```
+
+New variables are created as follows:
+
++ **feature_film**: "yes" if **title_type** is Feature Film, "no" otherwise
++ **drama**: "yes" if **genre** is Drama, "no" otherwise
++ **mpaa_rating_R**: "yes" if **mpaa_rating** is R, "no" otherwise
++ **oscar_season**: "yes" if movie is released in November, October, or December (based on **thtr_rel_month**), "no" otherwise
++ **summer_season**: "yes" if movie is released in May, June, July, or August (based on **thtr_rel_month**), "no" otherwise 
+
+```{r}
+movies_added_predictors <- movies_no_na %>%
+  mutate(feature_film = if_else(title_type=="Feature Film","yes","no")) %>%
+  mutate(drama = if_else(genre=="Drama","yes","no")) %>%
+  mutate(mpaa_rating_R = if_else(mpaa_rating=="R","yes","no")) %>%
+  mutate(oscar_season = if_else(is.element(thtr_rel_month,c(10,11,12)),"yes","no")) %>%
+  mutate(summer_season = if_else(is.element(thtr_rel_month,c(5,6,7,8)),"yes","no"))
+
+movies_added_predictors$feature_film = factor(movies_added_predictors$feature_film, levels = c("yes", "no"))
+movies_added_predictors$drama = factor(movies_added_predictors$drama, levels = c("yes", "no"))
+movies_added_predictors$mpaa_rating_R = factor(movies_added_predictors$mpaa_rating_R, levels = c("yes", "no"))
+movies_added_predictors$oscar_season = factor(movies_added_predictors$oscar_season, levels = c("yes", "no"))
+movies_added_predictors$summer_season = factor(movies_added_predictors$summer_season, levels = c("yes", "no"))
+```
 
 * * *
 
