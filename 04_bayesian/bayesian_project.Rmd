@@ -83,9 +83,49 @@ movies_added_predictors$summer_season = factor(movies_added_predictors$summer_se
 
 ## Part 3: Exploratory data analysis
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button above. Make sure that your code is visible in the project you submit. 
-Delete this note when before you submit your work.
+We will consider the following variables in our bayesian model selection:
+
++ **feature_film**
++ **drama**
++ **runtime**
++ **mpaa_rating_R**
++ **thtr_rel_year**
++ **oscar_season**
++ **summer_season**
++ **imdb_rating**
++ **imdb_num_votes**
++ **critics_score**
++ **best_pic_nom**
++ **best_pic_win**
++ **best_actor_win**
++ **best_actress_win**
++ **best_dir_win**
++ **top200_box**
+
+Firstly, lets explore the relationship between audience_score and the new categorical variables constructed in the previous part.
+
+1) Feature film and audience score
+
+Box plot to visualize the differences in audience score distribution among categorical variable, **feature_film**.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=feature_film, y=audience_score)) + 
+  geom_boxplot() + 
+  labs(title = "Boxplot of audience_score against feature_film")
+```
+
+Summary statistics
+```{r}
+movies_added_predictors %>%
+  group_by(feature_film) %>%
+  summarize(mean=mean(audience_score), sd=sd(audience_score),median=median(audience_score),IQR=IQR(audience_score),min=min(audience_score),max=max(audience_score), count=n())
+```
+
+<span style="color:blue">Interpretation: There is an obvious difference in the distribution of audience score between movies that belong to </span>
+<span style="color:blue;font-weight:bold">feature_film</span>
+<span style="color:blue"> category and those that do not. The </span>
+<span style="color:blue;font-weight:bold">feature_film</span>
+<span style="color:blue"> title type has lower audience score by 21.966 on average compared to the rest.</span>
+<br> </br>
 
 * * *
 
