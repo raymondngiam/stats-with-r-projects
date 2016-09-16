@@ -127,6 +127,29 @@ movies_added_predictors %>%
 <span style="color:blue"> title type has lower audience score by 21.966 on average compared to the rest.</span>
 <br> </br>
 
+2) Drama and audience score
+
+Box plot to visualize the differences in audience score distribution among categorical variable, **drama**.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=drama, y=audience_score)) + 
+  geom_boxplot() + 
+  labs(title = "Boxplot of audience_score against drama")
+```
+
+Summary statistics
+```{r}
+movies_added_predictors %>%
+  group_by(drama) %>%
+  summarize(mean=mean(audience_score), sd=sd(audience_score),median=median(audience_score),IQR=IQR(audience_score),min=min(audience_score),max=max(audience_score), count=n())
+```
+
+<span style="color:blue">Interpretation: There is an obvious difference in the distribution of audience score between movies that belong to </span>
+<span style="color:blue;font-weight:bold">drama</span>
+<span style="color:blue"> category and those that do not. The </span>
+<span style="color:blue;font-weight:bold">drama</span>
+<span style="color:blue"> genre has higher audience score by 5.937 on average compared to the rest.</span>
+<br> </br>
+
 * * *
 
 ## Part 4: Modeling
