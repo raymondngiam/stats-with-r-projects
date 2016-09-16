@@ -194,6 +194,53 @@ movies_added_predictors %>%
 <span style="color:blue"> has higher audience score by 2.322 on average compared to the rest.</span>
 <br> </br>
 
+5) Summer season and audience score
+
+Box plot to visualize the differences in audience score distribution among categorical variable, **summer_season**.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=summer_season, y=audience_score)) + 
+  geom_boxplot() + 
+  labs(title = "Boxplot of audience_score against summer_season")
+```
+
+Summary statistics
+```{r}
+movies_added_predictors %>%
+  group_by(summer_season) %>%
+  summarize(mean=mean(audience_score), sd=sd(audience_score),median=median(audience_score),IQR=IQR(audience_score),min=min(audience_score),max=max(audience_score), count=n())
+```
+
+<span style="color:blue">Interpretation: Apparently there is close to no difference in the distribution of audience score between movies that are released on </span>
+<span style="color:blue;font-weight:bold">summer_season</span>
+<span style="color:blue"> and those that are not. The difference of average audience score between the two classes is only 0.532, hence it is not a significant predictor.</span>
+<br> </br>
+
+Next, we will analyze the numeric explanatory variables, namely **runtime**, **thtr_rel_year**, **imdb_rating**, **imdb_num_votes**, and **critics score**. Out of these five variables, **imdb_num_votes** is of particular interest.
+
+Below is the histogram for the distribution of **imdb_num_votes**,
+
+```{r}
+ggplot(data = movies_added_predictors, aes(x=imdb_num_votes)) +
+  geom_histogram(binwidth = 1500) +
+  labs(title = "Histogram of imdb_num_votes")
+range(movies_added_predictors$imdb_num_votes)
+```
+
+The range of **imdb_num_votes** is (183, 893008), and it is heavily right-skewed. It will be more meaningful if we apply a log transformation, and name it as a new variable, **limdb_num_votes**.
+
+```{r}
+movies_added_predictors <- movies_added_predictors %>%
+  mutate(limdb_num_votes = log10(imdb_num_votes))
+```
+
+Histogram of **limdb_num_votes**
+```{r}
+ggplot(data = movies_added_predictors, aes(x=limdb_num_votes)) +
+  geom_histogram(binwidth = 0.1) +
+  labs(title = "Histogram of limdb_num_votes")
+```
+<br> </br>
+
 * * *
 
 ## Part 4: Modeling
