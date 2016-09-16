@@ -171,6 +171,29 @@ movies_added_predictors %>%
 <span style="color:blue"> category and those that do not. The difference of average audience score between the two classes is only 0.336, hence it is not a significant predictor.</span>
 <br> </br>
 
+4) Oscar season and audience score
+
+Box plot to visualize the differences in audience score distribution among categorical variable, **oscar_season**.
+```{r}
+ggplot(data=movies_added_predictors, aes(x=oscar_season, y=audience_score)) + 
+  geom_boxplot() + 
+  labs(title = "Boxplot of audience_score against oscar_season")
+```
+
+Summary statistics
+```{r}
+movies_added_predictors %>%
+  group_by(oscar_season) %>%
+  summarize(mean=mean(audience_score), sd=sd(audience_score),median=median(audience_score),IQR=IQR(audience_score),min=min(audience_score),max=max(audience_score), count=n())
+```
+
+<span style="color:blue">Interpretation: There is an obvious difference in the distribution of audience score between movies that are released on </span>
+<span style="color:blue;font-weight:bold">oscar_season</span>
+<span style="color:blue"> and those that are not. The movies that are released on </span>
+<span style="color:blue;font-weight:bold">oscar_season</span>
+<span style="color:blue"> has higher audience score by 2.322 on average compared to the rest.</span>
+<br> </br>
+
 * * *
 
 ## Part 4: Modeling
