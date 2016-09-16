@@ -17,6 +17,7 @@ library(ggplot2)
 library(dplyr)
 library(statsr)
 library(BAS)
+library(GGally)
 ```
 
 ### Load data
@@ -241,6 +242,22 @@ ggplot(data = movies_added_predictors, aes(x=limdb_num_votes)) +
 ```
 <br> </br>
 
+Next, we will explore the correlation among the five numeric explanatory variables.
+
+```{r}
+ggpairs(dplyr::select(movies_added_predictors,runtime, thtr_rel_year,limdb_num_votes,imdb_rating,critics_score),title = "Pairwise relationships among numeric explanatory variables")
+```
+
+<br> </br>
+
+We observed that **imdb_rating** and **critics_score** are highly correlated with correlation coefficient of 0.762, while the rest are not as correlated. Since the two variables are measure of the movie's popularity, we can compute a weighted average from the two variables to form a new variable **score**. 
+
+Since **imdb_rating** is of the range (0,10) and **critics_score** is of the range (0,100), we reweight them by multiply **imdb_rating** with weight 10, and **critics_score** with weight 1, then taking the average of both. The final **score** variable will be of the range (0,100).
+
+```{r}
+movies_added_predictors <- movies_added_predictors %>%
+  mutate(score = (imdb_rating*10+critics_score)/2)
+```
 * * *
 
 ## Part 4: Modeling
