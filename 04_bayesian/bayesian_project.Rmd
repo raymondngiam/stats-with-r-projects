@@ -366,6 +366,31 @@ HPM_pred_audience_score = predict(bma_audience_score, estimator="HPM",se.fit=TRU
 bma_audience_score$namesx[HPM_pred_audience_score$bestmodel+1]
 ```
 
+<br> </br>
+
+**Interpretation of model coefficients**
+
+The 95% credible intervals for the regression coefficients are as follows:
+
+```{r}
+coef_audience_score = coefficients(bma_audience_score)
+confint(coef_audience_score)
+```
+
+Visualization of 5 explanatory variables with the highest posterior inclusion probability.
+
+```{r}
+plot(coef_audience_score, subset=c(2,3,5,7,8),  ask=F)
+```
+
+<span style="color:blue">From the posterior distribution of coefficients, there are 95% probability that</span>
+
++ <span style="color:blue">All else held constant, feature films have 3.037 to 14.814 point lower in audience score than those that ain't feature film.</span>
+
++ <span style="color:blue">All else held constant, for each point increment in score increases the audience score from 0.716 to 0.849 point.</span>
+
++ <span style="color:blue">All else held constant, for each point increment in log of IMDb number of vote increases the audience score from 2.804 to 6.507 point.</span>
+
 * * *
 
 ## Part 5: Prediction
