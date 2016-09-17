@@ -436,6 +436,32 @@ new_movie<-data.frame(audience_score=as.numeric(0),feature_film="yes",drama="no"
 pander(new_movie)
 ```
 
+Note that the **audience_score** is initially set to 0, as this is the response variable that we wish to predict.
+<br> </br>
+
+**Making the prediction**
+
+<span style="text-decoration:underline">Prediction using Highest Probability Model</span>
+
+The **new_movie** dataframe is concatenated to the existing training data used to create the bas.lm object, to form a new dataframe, **data_test**. This is then used for prediction.
+
+```{r}
+data_test<-data_train %>%
+  rbind(new_movie)
+
+n_new<-nrow(data_test)
+
+set.seed(5)
+HPM_pred_audience_score = predict(bma_audience_score, newdata=data_test, estimator="HPM",prediction = TRUE, se.fit=TRUE)
+
+HPM_pred_audience_score$fit[n_new]
+ci_audience_score = confint(HPM_pred_audience_score, estimator="HPM")
+ci_audience_score[n_new,]
+```
+
+The predicted audience score for the movie "The Martian" using the BIC model, which also corresponds to highest probability model in BMA is 87.70. With 95% probability, the predicted audience score lies between 63.49 and 111.91.
+<br> </br>
+
 * * *
 
 ## Part 6: Conclusion

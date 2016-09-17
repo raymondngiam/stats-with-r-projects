@@ -772,6 +772,25 @@ bma_audience_score$namesx[HPM_pred_audience_score$bestmodel<span class="dv">+1</
 </tr>
 </tbody>
 </table>
+<p>Note that the <strong>audience_score</strong> is initially set to 0, as this is the response variable that we wish to predict. <br> </br></p>
+<p><strong>Making the prediction</strong></p>
+<p><span style="text-decoration:underline">Prediction using Highest Probability Model</span></p>
+<p>The <strong>new_movie</strong> dataframe is concatenated to the existing training data used to create the bas.lm object, to form a new dataframe, <strong>data_test</strong>. This is then used for prediction.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_test&lt;-data_train %&gt;%
+<span class="st">  </span><span class="kw">rbind</span>(new_movie)
+
+n_new&lt;-<span class="kw">nrow</span>(data_test)
+
+<span class="kw">set.seed</span>(<span class="dv">5</span>)
+HPM_pred_audience_score =<span class="st"> </span><span class="kw">predict</span>(bma_audience_score, <span class="dt">newdata=</span>data_test, <span class="dt">estimator=</span><span class="st">&quot;HPM&quot;</span>,<span class="dt">prediction =</span> <span class="ot">TRUE</span>, <span class="dt">se.fit=</span><span class="ot">TRUE</span>)
+
+HPM_pred_audience_score$fit[n_new]</code></pre></div>
+<pre><code>## [1] 87.6992</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ci_audience_score =<span class="st"> </span><span class="kw">confint</span>(HPM_pred_audience_score, <span class="dt">estimator=</span><span class="st">&quot;HPM&quot;</span>)
+ci_audience_score[n_new,]</code></pre></div>
+<pre><code>##    2.5  %   97.5  % 
+##  63.48714 111.91126</code></pre>
+<p>The predicted audience score for the movie “The Martian” using the BIC model, which also corresponds to highest probability model in BMA is 87.70. With 95% probability, the predicted audience score lies between 63.49 and 111.91. <br> </br></p>
 <hr />
 </div>
 <div id="part-6-conclusion" class="section level2">
