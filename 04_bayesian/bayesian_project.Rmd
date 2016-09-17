@@ -301,6 +301,71 @@ summary(BICmodel)
 <span style="color:blue;font-weight:bold">limdb_num_votes. </span>
 <span style="color:blue">63.03% of the variability of the audience score is explained by this model.</span>
 
+<br> </br>
+
+**Model Diagnostics**
+
+```{r}
+par(mfrow=c(2,2))
+plot(BICmodel)
+```
+
+<span style="text-decoration:underline">Linearity:</span>
+
+<span style="color:blue">Random scatter around zero in residuals vs fitted plot. Hence relationship between response variable and explanatory variables should be linear.</span>
+
+<span style="text-decoration:underline">Nearly normal residuals:</span>
+
+Histogram of residual
+
+```{r}
+par(mfrow=c(1,1))
+plot(density(BICmodel$resid))
+```
+
+<span style="color:blue">From the normal probability plot and histogram of residual, the condition for nearly normal residuals is satisfied.</span>
+
+<span style="text-decoration:underline">Constant variability:</span>
+
+<span style="color:blue">From the residuals vs fitted plot, the condition for constant variability is also satisfied.</span>
+
+<br> </br>
+
+**Bayesian model selection using Bayesian Model Averaging (BMA)**
+
+BMA is created using bas.lm function from the BAS package.
+
+```{r}
+set.seed(5)
+bma_audience_score = bas.lm(audience_score ~ ., 
+                   prior = "BIC", 
+                   modelprior = uniform(),
+                   data=data_train)
+bma_audience_score
+summary(bma_audience_score)
+```
+
+Diagnostic plots for the BMA
+
+```{r}
+par(mfrow=c(2,2)) 
+plot(bma_audience_score,ask=F)
+```
+
+Visualization of model uncertainty
+
+```{r}
+par(mfrow=c(1,1)) 
+image(bma_audience_score,rotate=F)
+```
+
+<span style="color:blue">The highest probability model in the BMA corresponds to the model selected via BIC in the previous part. It has posterior probability of 25.72% from a total of $2^{13} = 8196$ possible models.</span>
+
+```{r}
+HPM_pred_audience_score = predict(bma_audience_score, estimator="HPM",se.fit=TRUE)
+bma_audience_score$namesx[HPM_pred_audience_score$bestmodel+1]
+```
+
 * * *
 
 ## Part 5: Prediction
