@@ -158,7 +158,8 @@ $(document).ready(function () {
 <span class="kw">library</span>(statsr)
 <span class="kw">library</span>(BAS)
 <span class="kw">library</span>(GGally)
-<span class="kw">library</span>(MASS)</code></pre></div>
+<span class="kw">library</span>(MASS)
+<span class="kw">library</span>(pander)</code></pre></div>
 </div>
 <div id="load-data" class="section level3">
 <h3>Load data</h3>
@@ -672,7 +673,105 @@ bma_audience_score$namesx[HPM_pred_audience_score$bestmodel<span class="dv">+1</
 </div>
 <div id="part-5-prediction" class="section level2">
 <h2>Part 5: Prediction</h2>
-<p>NOTE: Insert code chunks as needed by clicking on the “Insert a new code chunk” button above. Make sure that your code is visible in the project you submit. Delete this note when before you submit your work.</p>
+<p>Based on the bayesian multiple regression model we came up with, we would like to predict Rotten Tomatoes’ audience score for the movie “The Martian” of year 2015, which is not in the existing dataset. Below are the related details about the movie:</p>
+<p>Movie: <strong>The Martian</strong></p>
+<p>Feature Film: <strong>Yes</strong></p>
+<p>Genre: <strong>Science Fiction &amp; Fantasy</strong> [2]</p>
+<p>Release date: <strong>2 October 2015</strong> [2]</p>
+<p>Runtime: <strong>164 min</strong> [2]</p>
+<p>MPAA Rating: <strong>PG-13</strong> [3]</p>
+<p>IMDb Number of Votes: <strong>469,371</strong> [3]</p>
+<p>IMDb Rating: <strong>8.1</strong> [3]</p>
+<p>Rotten Tomatoes Critics Score: <strong>92</strong> [2]</p>
+<p>Oscar Best Picture Nomination: <strong>Yes</strong> [4]</p>
+<p>Oscar Best Picture Won: <strong>No</strong> [4]</p>
+<p>Oscar Best Actor Award: <strong>No</strong> [5]</p>
+<p>Oscar Best Actress Award: <strong>No</strong> [6]</p>
+<p>Oscar Best Director Award: <strong>No</strong> [7]</p>
+<p>Top200 Box Office Listing: <strong>No</strong> [8] <br> </br></p>
+<p>From these raw information, the respective explanatory variables for the bayesian model are summarized as follow:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_movie&lt;-<span class="kw">data.frame</span>(<span class="dt">audience_score=</span><span class="kw">as.numeric</span>(<span class="dv">0</span>),<span class="dt">feature_film=</span><span class="st">&quot;yes&quot;</span>,<span class="dt">drama=</span><span class="st">&quot;no&quot;</span>,<span class="dt">runtime=</span><span class="kw">as.numeric</span>(<span class="dv">164</span>),<span class="dt">thtr_rel_year=</span><span class="kw">as.numeric</span>(<span class="dv">2015</span>),<span class="dt">oscar_season=</span><span class="st">&quot;yes&quot;</span>,<span class="dt">score=</span><span class="kw">as.numeric</span>(((<span class="fl">8.1</span>*<span class="dv">10</span>)+<span class="dv">92</span>)/<span class="dv">2</span>),<span class="dt">limdb_num_votes=</span><span class="kw">as.numeric</span>(<span class="kw">log10</span>(<span class="dv">468482</span>)),<span class="dt">best_pic_nom=</span><span class="st">&quot;yes&quot;</span>,<span class="dt">best_pic_win=</span><span class="st">&quot;no&quot;</span>,<span class="dt">best_actor_win=</span><span class="st">&quot;no&quot;</span>,<span class="dt">best_actress_win=</span><span class="st">&quot;no&quot;</span>,<span class="dt">best_dir_win=</span><span class="st">&quot;no&quot;</span>,<span class="dt">top200_box=</span><span class="st">&quot;no&quot;</span>)
+<span class="kw">pander</span>(new_movie)</code></pre></div>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="20%"></col>
+<col width="18%"></col>
+<col width="9%"></col>
+<col width="12%"></col>
+<col width="19%"></col>
+<col width="19%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">audience_score</th>
+<th align="center">feature_film</th>
+<th align="center">drama</th>
+<th align="center">runtime</th>
+<th align="center">thtr_rel_year</th>
+<th align="center">oscar_season</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+<td align="center">164</td>
+<td align="center">2015</td>
+<td align="center">yes</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="11%"></col>
+<col width="25%"></col>
+<col width="20%"></col>
+<col width="20%"></col>
+<col width="22%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">score</th>
+<th align="center">limdb_num_votes</th>
+<th align="center">best_pic_nom</th>
+<th align="center">best_pic_win</th>
+<th align="center">best_actor_win</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">86.5</td>
+<td align="center">5.671</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+<td align="center">no</td>
+</tr>
+</tbody>
+</table>
+<table style="width:64%;">
+<colgroup>
+<col width="26%"></col>
+<col width="20%"></col>
+<col width="16%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">best_actress_win</th>
+<th align="center">best_dir_win</th>
+<th align="center">top200_box</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">no</td>
+<td align="center">no</td>
+<td align="center">no</td>
+</tr>
+</tbody>
+</table>
 <hr />
 </div>
 <div id="part-6-conclusion" class="section level2">
