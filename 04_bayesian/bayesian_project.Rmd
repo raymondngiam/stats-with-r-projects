@@ -18,6 +18,7 @@ library(dplyr)
 library(statsr)
 library(BAS)
 library(GGally)
+library(MASS)
 ```
 
 ### Load data
@@ -262,9 +263,43 @@ movies_added_predictors <- movies_added_predictors %>%
 
 ## Part 4: Modeling
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button above. Make sure that your code is visible in the project you submit. 
-Delete this note when before you submit your work.
+**Bayesian Model Selection using Bayesian Information Criterion (BIC)** 
+
+Continue from our explanatory data analysis, we ended up with **13** explanatory variables as listed below. We will use these updated explanatory variables as the full model for our model selection under BIC: 
+
++ **feature_film**
++ **drama**
++ **runtime**
++ <span style="text-decoration:line-through">mpaa_rating_R</span>
++ **thtr_rel_year**
++ **oscar_season**
++ <span style="text-decoration:line-through">summer_season</span>
++ <span style="text-decoration:line-through">imdb_rating</span> 
+<span style="color:blue;font-weight:bold">score</span>
++ <span style="text-decoration:line-through">imdb_num_votes</span> 
+<span style="color:blue;font-weight:bold">limdb_num_votes</span>
++ <span style="text-decoration:line-through">critics_score</span>
++ **best_pic_nom**
++ **best_pic_win**
++ **best_actor_win**
++ **best_actress_win**
++ **best_dir_win**
++ **top200_box**
+
+```{r}
+data_train<-movies_added_predictors %>%
+  dplyr::select(audience_score,feature_film,drama,runtime,thtr_rel_year,oscar_season,score,limdb_num_votes,best_pic_nom,best_pic_win,best_actor_win,best_actress_win,best_dir_win,top200_box)
+modelFull = lm(audience_score ~ ., data=data_train)
+
+BICmodel<-stepAIC(modelFull,k=log(N))
+summary(BICmodel)
+```
+
+<span style="color:blue">The final model includes explanatory variables</span> 
+<span style="color:blue;font-weight:bold">feature_film, score</span>
+<span style="color:blue"> and</span> 
+<span style="color:blue;font-weight:bold">limdb_num_votes. </span>
+<span style="color:blue">63.03% of the variability of the audience score is explained by this model.</span>
 
 * * *
 

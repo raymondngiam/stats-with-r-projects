@@ -157,7 +157,8 @@ $(document).ready(function () {
 <span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(statsr)
 <span class="kw">library</span>(BAS)
-<span class="kw">library</span>(GGally)</code></pre></div>
+<span class="kw">library</span>(GGally)
+<span class="kw">library</span>(MASS)</code></pre></div>
 </div>
 <div id="load-data" class="section level3">
 <h3>Load data</h3>
@@ -344,7 +345,221 @@ movies_added_predictors$summer_season =<span class="st"> </span><span class="kw"
 </div>
 <div id="part-4-modeling" class="section level2">
 <h2>Part 4: Modeling</h2>
-<p>NOTE: Insert code chunks as needed by clicking on the “Insert a new code chunk” button above. Make sure that your code is visible in the project you submit. Delete this note when before you submit your work.</p>
+<p><strong>Bayesian Model Selection using Bayesian Information Criterion (BIC)</strong></p>
+<p>Continue from our explanatory data analysis, we ended up with <strong>13</strong> explanatory variables as listed below. We will use these updated explanatory variables as the full model for our model selection under BIC:</p>
+<ul>
+<li><strong>feature_film</strong></li>
+<li><strong>drama</strong></li>
+<li><strong>runtime</strong></li>
+<li><span style="text-decoration:line-through">mpaa_rating_R</span></li>
+<li><strong>thtr_rel_year</strong></li>
+<li><strong>oscar_season</strong></li>
+<li><span style="text-decoration:line-through">summer_season</span></li>
+<li><span style="text-decoration:line-through">imdb_rating</span> <span style="color:blue;font-weight:bold">score</span></li>
+<li><span style="text-decoration:line-through">imdb_num_votes</span> <span style="color:blue;font-weight:bold">limdb_num_votes</span></li>
+<li><span style="text-decoration:line-through">critics_score</span></li>
+<li><strong>best_pic_nom</strong></li>
+<li><strong>best_pic_win</strong></li>
+<li><strong>best_actor_win</strong></li>
+<li><strong>best_actress_win</strong></li>
+<li><strong>best_dir_win</strong></li>
+<li><strong>top200_box</strong></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_train&lt;-movies_added_predictors %&gt;%
+<span class="st">  </span>dplyr::<span class="kw">select</span>(audience_score,feature_film,drama,runtime,thtr_rel_year,oscar_season,score,limdb_num_votes,best_pic_nom,best_pic_win,best_actor_win,best_actress_win,best_dir_win,top200_box)
+modelFull =<span class="st"> </span><span class="kw">lm</span>(audience_score ~<span class="st"> </span>., <span class="dt">data=</span>data_train)
+
+BICmodel&lt;-<span class="kw">stepAIC</span>(modelFull,<span class="dt">k=</span><span class="kw">log</span>(N))</code></pre></div>
+<pre><code>## Start:  AIC=3169.18
+## audience_score ~ feature_film + drama + runtime + thtr_rel_year + 
+##     oscar_season + score + limdb_num_votes + best_pic_nom + best_pic_win + 
+##     best_actor_win + best_actress_win + best_dir_win + top200_box
+## 
+##                    Df Sum of Sq    RSS    AIC
+## - oscar_season      1         0  89551 3162.8
+## - runtime           1        18  89568 3162.9
+## - top200_box        1        36  89586 3163.0
+## - best_pic_win      1        55  89606 3163.1
+## - best_dir_win      1       234  89784 3164.4
+## - best_actor_win    1       316  89867 3164.9
+## - best_actress_win  1       337  89888 3165.1
+## - best_pic_nom      1       434  89985 3165.7
+## - drama             1       820  90371 3168.4
+## &lt;none&gt;                           89551 3169.2
+## - thtr_rel_year     1      1215  90766 3171.1
+## - feature_film      1      3094  92644 3183.8
+## - limdb_num_votes   1      5742  95293 3201.2
+## - score             1     81420 170971 3563.1
+## 
+## Step:  AIC=3162.75
+## audience_score ~ feature_film + drama + runtime + thtr_rel_year + 
+##     score + limdb_num_votes + best_pic_nom + best_pic_win + best_actor_win + 
+##     best_actress_win + best_dir_win + top200_box
+## 
+##                    Df Sum of Sq    RSS    AIC
+## - runtime           1        19  89570 3156.5
+## - top200_box        1        36  89587 3156.6
+## - best_pic_win      1        55  89606 3156.7
+## - best_dir_win      1       234  89785 3157.9
+## - best_actor_win    1       319  89870 3158.5
+## - best_actress_win  1       337  89888 3158.7
+## - best_pic_nom      1       439  89990 3159.4
+## - drama             1       821  90372 3162.0
+## &lt;none&gt;                           89551 3162.8
+## - thtr_rel_year     1      1215  90766 3164.7
+## - feature_film      1      3093  92644 3177.3
+## - limdb_num_votes   1      5742  95293 3194.8
+## - score             1     81476 171027 3556.8
+## 
+## Step:  AIC=3156.46
+## audience_score ~ feature_film + drama + thtr_rel_year + score + 
+##     limdb_num_votes + best_pic_nom + best_pic_win + best_actor_win + 
+##     best_actress_win + best_dir_win + top200_box
+## 
+##                    Df Sum of Sq    RSS    AIC
+## - top200_box        1        39  89608 3150.3
+## - best_pic_win      1        57  89627 3150.4
+## - best_dir_win      1       258  89828 3151.8
+## - best_actress_win  1       357  89926 3152.5
+## - best_actor_win    1       361  89931 3152.5
+## - best_pic_nom      1       425  89995 3153.0
+## - drama             1       803  90373 3155.6
+## &lt;none&gt;                           89570 3156.5
+## - thtr_rel_year     1      1196  90766 3158.2
+## - feature_film      1      3075  92644 3170.9
+## - limdb_num_votes   1      5811  95380 3188.9
+## - score             1     81746 171316 3551.4
+## 
+## Step:  AIC=3150.3
+## audience_score ~ feature_film + drama + thtr_rel_year + score + 
+##     limdb_num_votes + best_pic_nom + best_pic_win + best_actor_win + 
+##     best_actress_win + best_dir_win
+## 
+##                    Df Sum of Sq    RSS    AIC
+## - best_pic_win      1        60  89668 3144.3
+## - best_dir_win      1       251  89859 3145.6
+## - best_actor_win    1       364  89973 3146.4
+## - best_actress_win  1       369  89978 3146.4
+## - best_pic_nom      1       427  90036 3146.8
+## - drama             1       820  90428 3149.5
+## &lt;none&gt;                           89608 3150.3
+## - thtr_rel_year     1      1161  90770 3151.8
+## - feature_film      1      3056  92665 3164.6
+## - limdb_num_votes   1      5865  95474 3183.1
+## - score             1     81742 171351 3545.1
+## 
+## Step:  AIC=3144.28
+## audience_score ~ feature_film + drama + thtr_rel_year + score + 
+##     limdb_num_votes + best_pic_nom + best_actor_win + best_actress_win + 
+##     best_dir_win
+## 
+##                    Df Sum of Sq    RSS    AIC
+## - best_actor_win    1       343  90012 3140.2
+## - best_dir_win      1       355  90023 3140.3
+## - best_pic_nom      1       369  90037 3140.4
+## - best_actress_win  1       388  90057 3140.5
+## - drama             1       821  90489 3143.5
+## &lt;none&gt;                           89668 3144.3
+## - thtr_rel_year     1      1148  90816 3145.7
+## - feature_film      1      3028  92696 3158.4
+## - limdb_num_votes   1      5814  95482 3176.7
+## - score             1     81857 171525 3539.3
+## 
+## Step:  AIC=3140.22
+## audience_score ~ feature_film + drama + thtr_rel_year + score + 
+##     limdb_num_votes + best_pic_nom + best_actress_win + best_dir_win
+## 
+##                    Df Sum of Sq    RSS    AIC
+## - best_pic_nom      1       302  90314 3135.9
+## - best_dir_win      1       389  90401 3136.5
+## - best_actress_win  1       460  90472 3136.9
+## - drama             1       766  90778 3139.0
+## &lt;none&gt;                           90012 3140.2
+## - thtr_rel_year     1      1074  91085 3141.1
+## - feature_film      1      3067  93078 3154.5
+## - limdb_num_votes   1      5615  95627 3171.3
+## - score             1     81939 171951 3534.5
+## 
+## Step:  AIC=3135.86
+## audience_score ~ feature_film + drama + thtr_rel_year + score + 
+##     limdb_num_votes + best_actress_win + best_dir_win
+## 
+##                    Df Sum of Sq    RSS    AIC
+## - best_dir_win      1       342  90656 3131.8
+## - best_actress_win  1       354  90668 3131.9
+## - drama             1       819  91133 3135.0
+## &lt;none&gt;                           90314 3135.9
+## - thtr_rel_year     1      1147  91460 3137.2
+## - feature_film      1      3061  93374 3150.1
+## - limdb_num_votes   1      6206  96520 3170.6
+## - score             1     85029 175343 3540.1
+## 
+## Step:  AIC=3131.78
+## audience_score ~ feature_film + drama + thtr_rel_year + score + 
+##     limdb_num_votes + best_actress_win
+## 
+##                    Df Sum of Sq    RSS    AIC
+## - best_actress_win  1       389  91044 3128.0
+## - drama             1       805  91460 3130.8
+## &lt;none&gt;                           90656 3131.8
+## - thtr_rel_year     1      1004  91660 3132.2
+## - feature_film      1      3099  93754 3146.2
+## - limdb_num_votes   1      5902  96558 3164.4
+## - score             1     84778 175434 3534.0
+## 
+## Step:  AIC=3128
+## audience_score ~ feature_film + drama + thtr_rel_year + score + 
+##     limdb_num_votes
+## 
+##                   Df Sum of Sq    RSS    AIC
+## - drama            1       693  91738 3126.3
+## - thtr_rel_year    1       944  91988 3128.0
+## &lt;none&gt;                          91044 3128.0
+## - feature_film     1      3106  94151 3142.3
+## - limdb_num_votes  1      5696  96741 3159.1
+## - score            1     84543 175587 3528.1
+## 
+## Step:  AIC=3126.26
+## audience_score ~ feature_film + thtr_rel_year + score + limdb_num_votes
+## 
+##                   Df Sum of Sq    RSS    AIC
+## - thtr_rel_year    1       817  92555 3125.3
+## &lt;none&gt;                          91738 3126.3
+## - feature_film     1      2477  94215 3136.3
+## - limdb_num_votes  1      5204  96941 3154.0
+## - score            1     98042 189779 3569.8
+## 
+## Step:  AIC=3125.33
+## audience_score ~ feature_film + score + limdb_num_votes
+## 
+##                   Df Sum of Sq    RSS    AIC
+## &lt;none&gt;                          92555 3125.3
+## - feature_film     1      1854  94409 3131.2
+## - limdb_num_votes  1      4399  96954 3147.6
+## - score            1    109323 201878 3601.6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(BICmodel)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = audience_score ~ feature_film + score + limdb_num_votes, 
+##     data = data_train)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -35.394  -7.883   0.083   7.447  40.630 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     -4.77688    3.36055  -1.421  0.15569    
+## feature_filmno   7.75034    2.20791   3.510  0.00048 ***
+## score            0.79197    0.02938  26.952  &lt; 2e-16 ***
+## limdb_num_votes  4.22704    0.78187   5.406 9.21e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 12.27 on 615 degrees of freedom
+## Multiple R-squared:  0.6321, Adjusted R-squared:  0.6303 
+## F-statistic: 352.3 on 3 and 615 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><span style="color:blue">The final model includes explanatory variables</span> <span style="color:blue;font-weight:bold">feature_film, score</span> <span style="color:blue"> and</span> <span style="color:blue;font-weight:bold">limdb_num_votes. </span> <span style="color:blue">63.03% of the variability of the audience score is explained by this model.</span></p>
 <hr />
 </div>
 <div id="part-5-prediction" class="section level2">
