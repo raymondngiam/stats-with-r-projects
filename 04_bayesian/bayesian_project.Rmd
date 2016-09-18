@@ -462,6 +462,23 @@ ci_audience_score[n_new,]
 The predicted audience score for the movie "The Martian" using the BIC model, which also corresponds to highest probability model in BMA is 87.70. With 95% probability, the predicted audience score lies between 63.49 and 111.91.
 <br> </br>
 
+<span style="text-decoration:underline">Prediction using Bayesian Model Averaging</span>
+
+In prediction using BMA, multiple models are averaged to obtain posteriors of predictions from new data. Hence it can be considered as a weighted average of prediction from multiple models based on posterior probabilities.
+
+```{r}
+set.seed(5)
+BMA_pred_audience_score = predict(bma_audience_score, newdata=data_test, estimator="BMA",prediction = TRUE, se.fit=TRUE)
+
+BMA_pred_audience_score$fit[n_new]
+ci_audience_score = confint(BMA_pred_audience_score,estimator="BMA")
+ci_audience_score[n_new,]
+```
+
+The predicted audience score for the movie "The Martian" using BMA is 87.08. With 95% probability, the predicted audience score lies between 62.11 and 111.05.
+
+<span style="color:blue">From Rotten Tomatoes, the audience score of the movie "The Martian" retrieved during the writing on this assignment, i.e. 06 Aug, 2016, is 92 [2]. Our predictions with BIC model and BMA of 87.70 and 87.08 respectively, tend to underestimate audience score. However, the actual audience score lies within the 95% credible intervals of (63.49, 111.91) and (62.11, 111.05) for BIC model and BMA respectively.</span>
+
 * * *
 
 ## Part 6: Conclusion
