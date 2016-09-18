@@ -1,6 +1,7 @@
 ---
 title: "Bayesian modeling and prediction for movies"
 author: "Raymond Ngiam"
+date: "06 Aug 2016"
 output: 
   html_document: 
     fig_height: 4
