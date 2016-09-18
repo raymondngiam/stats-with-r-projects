@@ -483,3 +483,9 @@ The predicted audience score for the movie "The Martian" using BMA is 87.08. Wit
 
 ## Part 6: Conclusion
 
+The BIC model with 3 explanatory variables, namely **feature_film**, **score**, and **limdb_num_votes** has decent performance in predicting audience score of future movies. 
+
+We have also compared the prediction and 95% credible interval for a new movie between BIC model and BMA, whereby the results are very close. 
+
+One shortcoming of the current study is the limited quantity of explanatory variable for the Bayesian regression and modeling. Apart from that, our current study also did not explore the interaction among the explanatory variables. In future studies, more explanatory variables should be included and also interaction among explanatory variables should be considered.
+
