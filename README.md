@@ -35,3 +35,20 @@ install.packages("GGally")
 install.packages("BAS")
 install_github("StatsWithR/statsr")
 ```
+
+## Table of Content
+
+**P1: Introduction to Probability and Data**
+- Explanatory data analysis based on Behavioral Risk Factor Surveillance System (BRFSS) 2013 dataset. Health care coverage ratio, flu shot in the past 12 months ratio, and percentage distribution of Body Mass Index (BMI) classes were examined in this project.
+
+**P2: Inferential Statistics**
+  - Explanatory data analysis and inference based on General Social Survey (GSS) 1972-2014 dataset. Mother’s average age at first birth in 2011 for the United States according to the GSS dataset is compared againts the one according to “The World Factbook” by CIA.
+
+**P3: Linear Regression and Modeling**
+  - Exploratory data analysis and multiple linear regression modeling for movie data. The data set is comprised of 651 randomly sampled movies produced and released before 2016. Based on the regression model, prediction is made on popularity of a new movie that is not in the sample. Uncertainty around this prediction is quantified with confidence interval.
+
+**P4: Bayesian Statistics**
+  - Exploratory data analysis and bayesian modeling for movie data. The data set is comprised of 651 randomly sampled movies produced and released before 2016. Based on the bayesian model, prediction is made on popularity of a new movie that is not in the sample. Uncertainty around this prediction is quantified with credible interval. Bayesian Model Averaging approach is also explored in this project.
+
+**P5: Capstone Project**
+  - More details coming soon.
